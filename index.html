@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify-Style Header</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Circular', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: white;
+        }
+
+        .header {
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            height: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 32px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-button {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-button:hover {
+            transform: scale(1.05);
+        }
+
+        .search-bar {
+            position: relative;
+            margin-left: 16px;
+        }
+
+        .search-input {
+            background-color: #242424;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 40px;
+            color: white;
+            width: 364px;
+            height: 40px;
+            font-size: 14px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a7a7a7;
+        }
+
+        .user-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+
+        .install-button {
+            background-color: transparent;
+            border: 1px solid #727272;
+            border-radius: 20px;
+            padding: 8px 16px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .install-button:hover {
+            border-color: white;
+            transform: scale(1.02);
+        }
+
+        .user-profile {
+            width: 32px;
+            height: 32px;
+            background-color: #535353;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .user-profile:hover {
+            background-color: #666666;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .search-input {
+                width: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 16px;
+            }
+            
+            .search-bar {
+               display: none;
+            }
+
+        }
+
+        /* Dark mode enhancement */
+        @media (prefers-color-scheme: dark) {
+            .body {
+                background-color: #121212;
+            }
+            
+            .search-input {
+                background-color: #242424;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="navigation">
+       <!--     <div class="nav-buttons">
+                <button class="nav-button">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="nav-button">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>-->
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="What do you want to listen to?">
+            </div>
+        </div>
+
+        <div class="user-controls">
+
+            <button class="install-button">
+                <i class="fas fa-cloud-upload"></i>
+                <span>Upload</span>
+            </button>
+            <div class="user-profile">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </header>
+<style>
+        
+                .body {
+                    display: flex;
+                    background-color: #121212;
+                    color: #ffffff;
+                    height: 100vh;
+                    margin-top:50px;
+                    overflow: hidden;
+                }
+        
+                .sidebar {
+                    width: 240px;
+                    background-color: #000000;
+                    padding: 24px 12px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 24px;
+                    height: 100%;
+                    transition: all 0.3s ease;
+                }
+        
+                .logo {
+                    color: #ed7d31;
+                    font-size: 24px;
+                    font-weight: bold;
+                    margin-bottom: 24px;
+                    padding-left: 12px;
+                }
+        
+                .nav-links {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                }
+        
+                .nav-links a {
+                    color: #B3B3B3;
+                    text-decoration: none;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+                    font-weight: 500;
+                }
+        
+                .nav-links a i {
+                    width: 20px;
+                    text-align: center;
+                }
+        
+                .nav-links a:hover {
+                    color: #ffffff;
+                    background-color: #282828;
+                }
+        
+                .quick-filters {
+                    margin-top: 24px;
+                    padding: 16px 12px;
+                    background-color: #282828;
+                    border-radius: 8px;
+                }
+        
+                .quick-filters h3 {
+                    margin-bottom: 16px;
+                    color: #ffffff;
+                }
+        
+                .filter-buttons {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                }
+        
+                .filter-btn {
+                    background-color: #333333;
+                    border: none;
+                    color: #ffffff;
+                    padding: 8px 16px;
+                    border-radius: 16px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+        
+                .filter-btn:hover {
+                    background-color: #404040;
+                }
+        
+                .cta-button {
+                    background-color: #ed7d31;
+                    color: #000000;
+                    border: none;
+                    padding: 12px;
+                    border-radius: 24px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    margin-top: auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 8px;
+                }
+        
+                .cta-button:hover {
+                    background-color: #1ed760;
+                    transform: scale(1.02);
+                }
+        
+                .main-content {
+                    flex-grow: 1;
+                    padding: 24px;
+                    background-color: #121212;
+                    overflow-y: auto;
+                }
+        
+                .content-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 32px;
+                }
+        
+                .playlist-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                    gap: 24px;
+                }
+        
+                .playlist-card {
+                    background-color: #181818;
+                    padding: 16px;
+                    border-radius: 8px;
+                    transition: background-color 0.3s;
+                    cursor: pointer;
+                }
+        
+                .playlist-card:hover {
+                    background-color: #282828;
+                }
+        
+                .playlist-image {
+                    width: 100%;
+                    aspect-ratio: 1;
+                    background-color: #282828;
+                    border-radius: 4px;
+                    margin-bottom: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+        
+                .playlist-image i {
+                    font-size: 48px;
+                    color: #ed7d31;
+                }
+        
+                .right-sidebar {
+                    width: 280px;
+                    background-color: #181818;
+                    padding: 24px;
+                    border-left: 1px solid #282828;
+                    transition: all 0.3s ease;
+                }
+        
+                .news-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                }
+        
+                .news-item {
+                    padding: 12px;
+                    background-color: #282828;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                }
+        
+                .news-item:hover {
+                    background-color: #333333;
+                }
+        
+                .news-item h4 {
+                    margin-bottom: 8px;
+                    color: #ffffff;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+        
+                .news-item p {
+                    color: #B3B3B3;
+                    font-size: 14px;
+                }
+        
+                .menu-toggle {
+                    display: none;
+                    position: fixed;
+                    top: 20px;
+                    left: 20px;
+                    z-index: 1000;
+                    background: #ed7d31;
+                    border: none;
+                    color: white;
+                    padding: 10px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
+        
+                /* Responsive Design */
+                @media (max-width: 1200px) {
+                    .right-sidebar {
+                        width: 240px;
+                    }
+                }
+        
+                @media (max-width: 992px) {
+                    .right-sidebar {
+                        display: none;
+                    }
+                }
+        
+                @media (max-width: 768px) {
+                    .menu-toggle {
+                        display: block;
+                    }
+        
+                    .sidebar {
+                        position: fixed;
+                        left: -240px;
+                        z-index: 999;
+                    }
+        
+                    .sidebar.active {
+                        left: 0;
+                    }
+        
+                    .main-content {
+                        padding-left: 64px;
+                    }
+        
+                    .playlist-grid {
+                        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                    }
+                }
+        
+                @media (max-width: 480px) {
+                    .playlist-grid {
+                        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                    }
+        
+                    .main-content {
+                        padding: 16px;
+                        padding-left: 56px;
+                    }
+                }
+            </style>
+        </head>
+        <div class="body">
+            <!-- Menu Toggle Button for Mobile -->
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        
+            <!-- Left Sidebar -->
+            <div class="sidebar">
+                <div class="logo">
+                    <i class="fab fa-spotify"></i> Spotify
+                </div>
+                <nav class="nav-links">
+                    <a href="#"><i class="fas fa-home"></i> Home</a>
+                    <a href="#"><i class="fas fa-search"></i> Search</a>
+                    <a href="#"><i class="fas fa-book"></i> Your Library</a>
+                    <a href="#"><i class="fas fa-heart"></i> Liked Songs</a>
+                    <a href="#"><i class="fas fa-list"></i> Your Playlists</a>
+                </nav>
+                
+                <div class="quick-filters">
+                    <h3><i class="fas fa-filter"></i> Quick Filters</h3>
+                    <div class="filter-buttons">
+                        <button class="filter-btn"><i class="fas fa-music"></i> Playlists</button>
+                        <button class="filter-btn"><i class="fas fa-user"></i> Artists</button>
+                        <button class="filter-btn"><i class="fas fa-compact-disc"></i> Albums</button>
+                        <button class="filter-btn"><i class="fas fa-podcast"></i> Podcasts</button>
+                        <button class="filter-btn"><i class="fas fa-download"></i> Downloaded</button>
+                    </div>
+                </div>
+        
+                <button class="cta-button">
+                    <i class="fas fa-crown"></i> Upgrade to Premium
+                </button>
+            </div>
+        
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <div class="content-header">
+                    <h1><i class="far fa-clock"></i> Good evening</h1>
+                </div>
+                <div class="playlist-grid">
+                    <div class="playlist-card">
+                        <div class="playlist-image">
+                            <i class="fas fa-compass"></i>
+                        </div>
+                        <h3>Discover Weekly</h3>
+                        <p>Your weekly mixtape of fresh music</p>
+                    </div>
+                    <div class="playlist-card">
+                        <div class="playlist-image">
+                            <i class="fas fa-radar"></i>
+                        </div>
+                        <h3>Release Radar</h3>
+                        <p>Catch all the latest music</p>
+                    </div>
+                    <div class="playlist-card">
+                        <div class="playlist-image">
+                            <i class="fas fa-mix"></i>
+                        </div>
+                        <h3>Daily Mix 1</h3>
+                        <p>Made for you</p>
+                    </div>
+                    <div class="playlist-card">
+                        <div class="playlist-image">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Liked Songs</h3>
+                        <p>Your favorite tracks</p>
+                    </div>
+                </div>
+            </main>
+        
+            <!-- Right Sidebar -->
+            <div class="right-sidebar">
+                <h2><i class="fas fa-newspaper"></i> Music News</h2>
+                <div class="news-list">
+                    <div class="news-item">
+                        <h4><i class="fas fa-compact-disc"></i> New Album Release</h4>
+                        <p>Check out the latest album from your favorite artist</p>
+                    </div>
+                    <div class="news-item">
+                        <h4><i class="fas fa-fire"></i> Trending Now</h4>
+                        <p>See what's hot in your area</p>
+                    </div>
+                    <div class="news-item">
+                        <h4><i class="fas fa-ticket-alt"></i> Concert Updates</h4>
+                        <p>Upcoming shows near you</p>
+                    </div>
+                    <div class="news-item">
+                        <h4><i class="fas fa-star"></i> Artist Spotlight</h4>
+                        <p>Discover emerging talents in your preferred genres</p>
+                    </div>
+                </div>
+            </div>
+        
+            <script>
+                // Mobile menu toggle
+                const menuToggle = document.querySelector('.menu-toggle');
+                const sidebar = document.querySelector('.sidebar');
+        
+                menuToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
+        
+                // Close sidebar when clicking outside on mobile
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768 && 
+                        !sidebar.contains(e.target) && 
+                        !menuToggle.contains(e.target)) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+        
+                // Add active state to navigation links
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        document.querySelectorAll('.nav-links a').forEach(l => 
+                            l.style.color = '#B3B3B3'
+                        );
+                        link.style.color = '#ffffff';
+                    });
+                });
+        
+                // Add active state to filter buttons
+                document.querySelectorAll('.filter-btn').forEach(button => {
+                    button.addEventListener('click', () => {
+                        button.style.backgroundColor = button.style.backgroundColor === 'rgb(64, 64, 64)' 
+                            ? '#333333' 
+                            : '#404040';
+                    });
+                });
+        
+                // Add hover effect to news items
+                document.querySelectorAll('.news-item').forEach(item => {
+                    item.addEventListener('mouseenter', () => {
+                        item.style.transform = 'translateX(4px)';
+                    });
+                    item.addEventListener('mouseleave', () => {
+                        item.style.transform = 'translateX(0)';
+                    });
+                });
+            </script>
+
+</div>
+
+
+
+    </div>
+
+    <script>
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 0) {
+                header.style.backgroundColor = '#121212';
+            } else {
+                header.style.backgroundColor = 'transparent';
+            }
+        });
+    </script>
+
+
+
+
+
+<style>
+        .playlist-item {
+            background-color: #282828;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .playlist-item:hover {
+            background-color: #383838;
+        }
+
+        /* Player Styles */
+        .player {
+            position: fixed;
+            bottom: 4rem;
+            left: 0;
+            right: 0;
+            background-color: #181818;
+            border-top: 1px solid #282828;
+            padding: 1rem;
+            z-index: 100;
+        }
+
+        .player-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .song-info {
+            display: flex;
+            align-items: center;
+            width: 25%;
+        }
+
+        .song-thumbnail {
+            width: 48px;
+            height: 48px;
+            background-color: #282828;
+            border-radius: 4px;
+        }
+
+        .song-details {
+            margin-left: 1rem;
+        }
+
+        .song-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .song-artist {
+            font-size: 0.8rem;
+            color: #b3b3b3;
+        }
+
+        .player-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 50%;
+        }
+
+        .control-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .control-button {
+            background: none;
+            border: none;
+            color: #b3b3b3;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .control-button:hover {
+            color: white;
+        }
+
+        .play-button {
+            background-color: white;
+            color: black;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: #b3b3b3;
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 4px;
+            background-color: #4d4d4d;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .progress {
+            width: 30%;
+            height: 100%;
+            background-color: white;
+            border-radius: 2px;
+            transition: width 0.1s;
+        }
+
+        .volume-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 25%;
+            justify-content: flex-end;
+        }
+
+        .volume-bar {
+            width: 100px;
+            height: 4px;
+            background-color: #4d4d4d;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .volume {
+            width: 50%;
+            height: 100%;
+            background-color: white;
+            border-radius: 2px;
+        }
+
+        /* Navigation Styles */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #181818;
+            border-top: 1px solid #282828;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #b3b3b3;
+            text-decoration: none;
+            gap: 0.25rem;
+            cursor: pointer;
+        }
+
+        .nav-item:hover,
+ .nav-item.active {
+            color: white;
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+        }
+
+        .nav-label {
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 768px) {
+            .song-details {
+                display: none;
+            }
+            
+            .volume-controls {
+                display: none;
+            }
+
+            .player-container {
+                gap: 1rem;
+            }
+
+            .song-info,
+            .player-controls {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="player">
+        <div class="player-container">
+            <div class="song-info">
+                <div class="song-thumbnail"></div>
+                <div class="song-details">
+                    <div class="song-title">Song Title</div>
+                    <div class="song-artist">Artist Name</div>
+                </div>
+            </div>
+
+            <div class="player-controls">
+                <div class="control-buttons">
+                    <button class="control-button"><i class="fas fa-step-backward"></i></button>
+                    <button class="control-button play-button" id="playButton"><i class="fas fa-play"></i></button>
+                    <button class="control-button"><i class="fas fa-step-forward"></i></button>
+                </div>
+                <div class="progress-container">
+                    <span>0:00</span>
+                    <div class="progress-bar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <span>3:45</span>
+                </div>
+            </div>
+
+            <div class="volume-controls">
+                <button class="control-button"><i class="fas fa-volume-up"></i></button>
+                <div class="volume-bar">
+                    <div class="volume"></div>
+                </div>
+                <button class="control-button"><i class="fas fa-volume-mute"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-container">
+            <a class="nav-item active">
+                <span class="nav-icon"><i class="fas fa-home"></i></span>
+                <span class="nav-label">Home</span>
+            </a>
+            <a class="nav-item">
+                <span class="nav-icon"><i class="fas fa-search"></i></span>
+                <span class="nav-label">Search</span>
+            </a>
+            <a class="nav-item">
+                <span class="nav-icon"><i class="fas fa-book"></i></span>
+                <span class="nav-label">Library</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        const playButton = document.getElementById('playButton');
+        const progress = document.getElementById('progress');
+        let isPlaying = false;
+        let progressValue = 30;
+
+        playButton.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            playButton.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+        });
+
+        // Simulate progress bar movement
+        setInterval(() => {
+            if (isPlaying) {
+                progressValue = (progressValue + 1) % 100;
+                progress.style.width = `${progressValue}%`;
+            }
+        }, 1000);
+
+        // Make navigation items clickable
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.nav-item').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+                item.classList.add('active');
+            });
+        });
+
+        // Make progress bar clickable
+        document.querySelector('.progress-bar').addEventListener('click', (e) => {
+            const rect = e.target.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            progressValue = (x / rect.width) * 100;
+            progress.style.width = `${progressValue}%`;
+        });
+
+        // Make volume bar clickable
+        document.querySelector('.volume-bar').addEventListener('click', (e) => {
+            const rect = e.target.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const volume = document.querySelector('.volume');
+            volume.style.width = `${(x / rect.width) * 100}%`;
+        });
+    </script>
+
+
+</body>
+</html>
